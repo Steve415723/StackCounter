@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+	<meta name="theme-color" content="#00aaff" />
+	<meta name="description" content="공장 지을 때 유용한!" />
+	<meta name="og:title" content="마인크래프트 아이템 스택 계산기" />
+	<meta name="og:description" content="공장 지을 때 유용한!" />
+	<meta name="og:theme-color" content="#00aaff" />
+    <title>마인크래프트 아이템 스택 계산기</title>
+</head>
+<body>
+    <div id="header">
+        <div id="title"><span>마인크래프트</span> <span>아이템 스택 계산기</span></div>
+        <div id="desc">공장 지을 때 유용한!</div>
+    </div>
+    <div id="content">
+        <div>
+            <input type="text" id="stack-input" value="0">
+            <span style="margin-left: 0;">블록 = </span>
+        </div>
+        <div>
+            <input type="text" id="set-input" value="0">
+            <span style="margin-left: 0;">세트 + </span>
+            <input type="text" id="block-input" value="0">
+            <span style="margin-left: 0;">블록</span>
+        </div>
+        <div>
+            <span style="margin-right: 0;">(1세트 =</span>
+            <input type="text" id="stack-count-input" value="64">
+            <span style="margin-left: 0;">개)</span>
+        </div>
+    </div>
+    <div id="footer">
+        <span>Made by Steve415723</span>
+        <span>Since 2024.01.08</span>
+        <span>최근 업데이트 - 2024.01.08(v0.1.0)</span>
+        <button id="github" onclick="window.open(``,`_blank`)">
+            <img src="./assets/github-mark.png" width="50" height="50">
+        </button>
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html>
