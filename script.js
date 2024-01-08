@@ -12,6 +12,9 @@ let stackValue = "0"
 let setValue = "0"
 let blockValue = "0"
 
+const LIMIT_STACK = 9999
+let limit = 64 * LIMIT_STACK + stackCount - 1
+
 stackInput.addEventListener("input",() => {
     const value = stackInput.value
     if (value && (isNaN(Number(value)) || value.includes("."))) {
@@ -21,8 +24,11 @@ stackInput.addEventListener("input",() => {
     if (value.length > 1 && value.startsWith("0")) {
         stackInput.value = value.slice(1)
     }
+    if (Number(value) > limit) {
+        stackInput.value = String(limit)
+    }
     stackValue = stackInput.value
-    stackInput.style.width = value.length + "ch"
+    stackInput.style.width = stackInput.value.length + "ch"
     calcStack("stack")
 })
 
@@ -43,8 +49,11 @@ setInput.addEventListener("input",() => {
     if (value.length > 1 && value.startsWith("0")) {
         setInput.value = value.slice(1)
     }
+    if (Number(value) > LIMIT_STACK) {
+        setInput.value = String(LIMIT_STACK)
+    }
     setValue = setInput.value
-    setInput.style.width = value.length + "ch"
+    setInput.style.width = setInput.value.length + "ch"
     calcStack("set")
 })
 
@@ -65,10 +74,11 @@ blockInput.addEventListener("input",() => {
     if (value.length > 1 && value.startsWith("0")) {
         blockInput.value = value.slice(1)
     }
-    if (Number(value) > stackCount) {
-        blockInput.value = String(stackCount)
+    if (Number(value) >= stackCount) {
+        blockInput.value = String(stackCount - 1)
     }
     blockValue = blockInput.value
+    blockInput.style.width = blockInput.value.length + "ch"
     calcStack("block")
 })
 
@@ -89,7 +99,12 @@ stackCountInput.addEventListener("input",() => {
     if (value.length > 1 && value.startsWith("0")) {
         stackCountInput.value = value.slice(1)
     }
-    stackCount = stackCountInput.value
+    if (Number(value) > 999) {
+        stackCountInput.value = "999"
+    }
+    stackCount = Number(stackCountInput.value)
+    limit = stackCount * LIMIT_STACK + stackCount - 1
+    stackCountInput.style.width = stackCountInput.value.length + "ch"
     if (value && value > 0) calcStack("stack")
 })
 
@@ -98,6 +113,7 @@ stackCountInput.addEventListener("focusout",() => {
     if (!value) {
         stackCountInput.value = "64"
         stackCount = 64
+        limit = 64 * LIMIT_STACK + 63
         calcStack("stack")
     }
 })
@@ -113,6 +129,7 @@ function calcStack(changed) {
         setInput.value = String(Math.floor(stack / stackCount))
         setInput.style.width = setInput.value.length + "ch"
         blockInput.value = String(stack % stackCount)
+        blockInput.style.width = blockInput.value.length + "ch"
     }
     else if (changed == "set") {
         const set = Number(setInput.value)
